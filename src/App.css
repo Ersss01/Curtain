@@ -140,9 +140,18 @@ button:hover {
 @media (max-width: 480px) {
   .App-nav ul {
     flex-direction: column;
-    gap: 0.5rem;
-    align-items: flex-start;
-    padding-left: 0.5rem;
+    gap: 0.7rem;
+    align-items: stretch;
+    padding-left: 0;
+  }
+  .App-nav a {
+    display: block;
+    width: 100%;
+    font-size: 1.15rem;
+    padding: 0.7rem 1rem;
+    text-align: left;
+    border-radius: 8px;
+    margin-bottom: 0.2rem;
   }
   .App-nav {
     padding: 0.5rem 0.2rem;
@@ -181,5 +190,26 @@ button:hover {
   .card img {
     width: 48px !important;
     height: 48px !important;
+  }
+  /* Галерея */
+  .gallery-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem !important;
+  }
+  .gallery-item {
+    padding: 0.5rem 0.2rem !important;
+  }
+  .gallery-item img {
+    width: 100% !important;
+    max-width: 320px;
+    height: auto !important;
+    border-radius: 12px !important;
+    margin: 0 auto 0.5rem auto;
+    display: block;
+  }
+  .gallery-item-title {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.3rem;
+    text-align: center;
   }
 }
