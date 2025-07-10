@@ -227,3 +227,9 @@ button:hover {
     text-align: center;
   }
 }
+
+@media (max-width: 700px) {
+  .gallery-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
