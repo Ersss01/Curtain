@@ -136,3 +136,50 @@ button:hover {
     font-size: 1.3rem;
   }
 }
+
+@media (max-width: 480px) {
+  .App-nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+    padding-left: 0.5rem;
+  }
+  .App-nav {
+    padding: 0.5rem 0.2rem;
+    margin-bottom: 1.2rem;
+    border-radius: 0 0 12px 12px;
+  }
+  section {
+    padding: 0.7rem 0.2rem;
+    margin: 0.7rem 0.1rem;
+    border-radius: 10px;
+  }
+  h2 {
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+  }
+  .card {
+    min-width: 0;
+    font-size: 15px;
+    padding: 0.7rem 0.4rem;
+  }
+  form {
+    padding: 0.7rem 0.2rem !important;
+    border-radius: 10px !important;
+  }
+  input, textarea, select, button {
+    font-size: 16px !important;
+    padding: 0.7rem !important;
+  }
+  label {
+    font-size: 15px !important;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  .card img {
+    width: 48px !important;
+    height: 48px !important;
+  }
+}
