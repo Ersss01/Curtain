@@ -129,7 +129,14 @@ button:hover {
     padding: 1.2rem 0.5rem;
     margin: 1.2rem 0.2rem;
   }
+  .App-nav {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+  }
   .App-nav ul {
+    display: block !important;
     flex-direction: column !important;
     gap: 0.7rem !important;
     align-items: stretch !important;
