@@ -78,7 +78,7 @@ export default function Catalog() {
       <div className="catalog-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
         {filtered.length === 0 && <div>{t.noCurtains}</div>}
         {filtered.map(p => (
-          <div key={p.id} className="card" style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden', minHeight: 120 }} onClick={() => setOpenId(openId === p.id ? null : p.id)}>
+          <div key={p.id} className="card" style={{ cursor: 'pointer', position: 'relative', overflow: 'visible', minHeight: 120 }} onClick={() => setOpenId(openId === p.id ? null : p.id)}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
               <img src={p.img} alt={p.name[lang]} style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 8, boxShadow: '0 1px 4px rgba(44,62,80,0.07)' }} />
               <div>
@@ -90,7 +90,19 @@ export default function Catalog() {
               </div>
             </div>
             {openId === p.id && (
-              <div style={{ marginTop: 14, background: '#eaf1fb', borderRadius: 10, padding: 12, boxShadow: '0 2px 8px rgba(44,62,80,0.07)', textAlign: 'center' }}>
+              <div style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: '100%',
+                minWidth: '200px',
+                background: '#eaf1fb',
+                borderRadius: 10,
+                padding: 12,
+                boxShadow: '0 2px 8px rgba(44,62,80,0.07)',
+                textAlign: 'center',
+                zIndex: 10,
+              }}>
                 <img src={p.img} alt={p.name[lang]} style={isMobile() ? { width: '100vw', maxWidth: '100vw', height: 'auto', objectFit: 'contain', borderRadius: 10, marginBottom: 10, display: 'block', marginLeft: 'calc(-50vw + 50%)' } : { width: '100%', maxHeight: 340, objectFit: 'cover', borderRadius: 8, marginBottom: 10 }} />
                 <div style={{ color: '#23272f', fontSize: 15 }}>{p.desc[lang]}</div>
                 <div style={{ fontSize: 13, color: '#888', marginTop: 6 }}>{t.clickToCollapse}</div>
