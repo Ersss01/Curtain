@@ -54,6 +54,10 @@ export default function Catalog() {
     (!filter.room || p.room[lang] === filter.room)
   ));
 
+  function isMobile() {
+    return window.innerWidth <= 600;
+  }
+
   return (
     <div>
       <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
@@ -87,7 +91,7 @@ export default function Catalog() {
             </div>
             {openId === p.id && (
               <div style={{ marginTop: 14, background: '#eaf1fb', borderRadius: 10, padding: 12, boxShadow: '0 2px 8px rgba(44,62,80,0.07)', textAlign: 'center' }}>
-                <img src={p.img} alt={p.name[lang]} style={{ width: '100%', maxHeight: 220, objectFit: 'cover', borderRadius: 8, marginBottom: 10 }} />
+                <img src={p.img} alt={p.name[lang]} style={isMobile() ? { width: '100vw', maxWidth: '100vw', height: 'auto', objectFit: 'contain', borderRadius: 10, marginBottom: 10 } : { width: '100%', maxHeight: 220, objectFit: 'cover', borderRadius: 8, marginBottom: 10 }} />
                 <div style={{ color: '#23272f', fontSize: 15 }}>{p.desc[lang]}</div>
                 <div style={{ fontSize: 13, color: '#888', marginTop: 6 }}>{t.clickToCollapse}</div>
               </div>

@@ -130,7 +130,20 @@ button:hover {
     margin: 1.2rem 0.2rem;
   }
   .App-nav ul {
-    gap: 1.1rem;
+    flex-direction: column !important;
+    gap: 0.7rem !important;
+    align-items: stretch !important;
+    width: 100%;
+    padding-left: 0 !important;
+  }
+  .App-nav a {
+    display: block !important;
+    width: 100% !important;
+    font-size: 1.15rem !important;
+    padding: 0.7rem 1rem !important;
+    text-align: left !important;
+    border-radius: 8px !important;
+    margin-bottom: 0.2rem !important;
   }
   h2 {
     font-size: 1.3rem;
@@ -139,19 +152,20 @@ button:hover {
 
 @media (max-width: 480px) {
   .App-nav ul {
-    flex-direction: column;
-    gap: 0.7rem;
-    align-items: stretch;
-    padding-left: 0;
+    flex-direction: column !important;
+    gap: 0.7rem !important;
+    align-items: stretch !important;
+    width: 100%;
+    padding-left: 0 !important;
   }
   .App-nav a {
-    display: block;
-    width: 100%;
-    font-size: 1.15rem;
-    padding: 0.7rem 1rem;
-    text-align: left;
-    border-radius: 8px;
-    margin-bottom: 0.2rem;
+    display: block !important;
+    width: 100% !important;
+    font-size: 1.15rem !important;
+    padding: 0.7rem 1rem !important;
+    text-align: left !important;
+    border-radius: 8px !important;
+    margin-bottom: 0.2rem !important;
   }
   .App-nav {
     padding: 0.5rem 0.2rem;

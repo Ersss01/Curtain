@@ -15,16 +15,25 @@ const images = [
   'https://i.pinimg.com/1200x/6e/d1/72/6ed17241728bb641d65b895287777260.jpg',
 ];
 
+function isMobile() {
+  return window.innerWidth <= 600;
+}
+
 export default function Gallery() {
   const [openIdx, setOpenIdx] = useState(null);
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
+    <div className="gallery-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
       {images.map((src, i) => (
-        <div key={i} className="card" style={{ overflow: 'hidden', cursor: 'pointer', position: 'relative' }} onClick={() => setOpenIdx(openIdx === i ? null : i)}>
+        <div key={i} className="card gallery-item" style={{ overflow: 'hidden', cursor: 'pointer', position: 'relative' }} onClick={() => setOpenIdx(openIdx === i ? null : i)}>
           <img
             src={src}
             alt={`Шторы ${i+1}`}
-            style={{ width: '100%', height: openIdx === i ? 340 : 180, objectFit: 'cover', display: 'block', borderRadius: 8, transition: 'height 0.3s' }}
+            style={openIdx === i ?
+              (isMobile()
+                ? { width: '100vw', maxWidth: '100vw', height: 'auto', objectFit: 'contain', display: 'block', borderRadius: 12, transition: 'all 0.3s', margin: '0 auto' }
+                : { width: '100%', height: 340, objectFit: 'cover', display: 'block', borderRadius: 8, transition: 'height 0.3s' })
+              : { width: '100%', height: 180, objectFit: 'cover', display: 'block', borderRadius: 8, transition: 'height 0.3s' }
+            }
           />
           {openIdx === i && (
             <div style={{ position: 'absolute', top: 10, right: 10, background: '#fff', color: '#3a7bd5', borderRadius: 6, padding: '2px 10px', fontSize: 13, boxShadow: '0 1px 4px rgba(44,62,80,0.07)' }}>Нажмите ещё раз, чтобы свернуть</div>
