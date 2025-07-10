@@ -237,4 +237,32 @@ button:hover {
   .App-nav ul {
     overflow-x: hidden !important;
   }
+  section {
+    max-width: 480px !important;
+    margin: 0.7rem auto !important;
+    border-radius: 10px !important;
+  }
+  .card {
+    max-width: 480px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0.7rem 0.4rem !important;
+  }
+  form {
+    max-width: 480px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0.7rem 0.2rem !important;
+    border-radius: 10px !important;
+  }
+  .gallery-grid {
+    max-width: 480px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .App-nav {
+    max-width: 480px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
 }
