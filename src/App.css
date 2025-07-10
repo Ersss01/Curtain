@@ -137,6 +137,13 @@ button:hover {
     padding-left: 0 !important;
     justify-content: flex-start !important;
   }
+  .App-nav li {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    float: none !important;
+  }
   .App-nav a {
     display: block !important;
     width: 100% !important;
@@ -149,6 +156,44 @@ button:hover {
   }
   h2 {
     font-size: 1.3rem;
+  }
+  /* Каталог: карточки в одну колонку */
+  .card {
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0.7rem 0.4rem !important;
+    box-sizing: border-box !important;
+  }
+  /* Галерея: всегда одна колонка */
+  .gallery-grid {
+    grid-template-columns: 1fr !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .gallery-item {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  /* Модальное окно для увеличенной картинки */
+  .gallery-modal {
+    position: fixed !important;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  .gallery-modal img {
+    max-width: 96vw;
+    max-height: 80vh;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(44,62,80,0.13);
+    background: #fff;
   }
 }
 
