@@ -310,4 +310,12 @@ button:hover {
     margin-left: auto !important;
     margin-right: auto !important;
   }
+  .catalog-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1rem !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
 }

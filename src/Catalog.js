@@ -75,7 +75,7 @@ export default function Catalog() {
           {rooms[lang].map(r => <option key={r} value={r}>{r}</option>)}
         </select>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
+      <div className="catalog-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
         {filtered.length === 0 && <div>{t.noCurtains}</div>}
         {filtered.map(p => (
           <div key={p.id} className="card" style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden', minHeight: 120 }} onClick={() => setOpenId(openId === p.id ? null : p.id)}>
