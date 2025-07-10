@@ -110,7 +110,7 @@ export default function Catalog() {
                 flexDirection: 'column',
                 alignItems: 'center',
               }}>
-                <img src={p.img} alt={p.name[lang]} style={isMobile() ? { width: '90vw', maxWidth: 400, height: 'auto', objectFit: 'contain', borderRadius: 10, marginBottom: 10, display: 'block' } : { width: '100%', maxHeight: 340, objectFit: 'cover', borderRadius: 8, marginBottom: 10 }} />
+                <img src={p.img} alt={p.name[lang]} style={isMobile() ? { width: '100%', maxWidth: '100vw', height: 'auto', objectFit: 'contain', borderRadius: 10, marginBottom: 10, display: 'block', margin: '0 auto' } : { width: '100%', maxHeight: 340, objectFit: 'cover', borderRadius: 8, marginBottom: 10 }} />
                 <div style={{ color: '#23272f', fontSize: 15, marginBottom: 6 }}>{p.desc[lang]}</div>
                 <div style={{ fontSize: 13, color: '#888' }}>{t.clickToCollapse}</div>
               </div>

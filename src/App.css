@@ -125,10 +125,6 @@ button:hover {
 
 /* Адаптивность */
 @media (max-width: 700px) {
-  section {
-    padding: 1.2rem 0.5rem;
-    margin: 1.2rem 0.2rem;
-  }
   .App-nav {
     display: flex !important;
     flex-direction: column !important;
