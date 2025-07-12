@@ -9,7 +9,7 @@ export default function Reviews() {
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/reviews')
+    fetch('https://curtain-production.up.railway.app/api/reviews')
       .then(r => r.json())
       .then(data => { setReviews(data); setLoading(false); })
       .catch(() => setLoading(false));
@@ -26,7 +26,7 @@ export default function Reviews() {
     setSuccess(false);
     setSending(true);
     try {
-      const res = await fetch('http://localhost:5000/api/reviews', {
+      const res = await fetch('https://curtain-production.up.railway.app/api/reviews', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
