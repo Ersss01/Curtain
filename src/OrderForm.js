@@ -17,7 +17,7 @@ export default function OrderForm() {
     e.preventDefault();
     setError('');
     try {
-      const res = await fetch('https://curtain-production.up.railway.app/', {
+      const res = await fetch('https://curtain-production.up.railway.app/api/order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
