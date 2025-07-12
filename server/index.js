@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 // Вставь сюда свой токен Telegram-бота и chat_id (куда отправлять заявки)
 const TELEGRAM_TOKEN = '7857320725:AAGXrR03oYoktLmxX-3NgfyRTdHJWiO1Vfg';
