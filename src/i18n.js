@@ -26,6 +26,8 @@ export const translations = {
     price: 'Цена',
     noCurtains: 'Нет подходящих штор',
     clickToCollapse: 'Нажмите ещё раз, чтобы свернуть',
+    color_bordo: 'Бордовый',
+    color_beige: 'Бежевый',
   },
   kz: {
     name: 'Атыңыз',
@@ -52,6 +54,8 @@ export const translations = {
     price: 'Бағасы',
     noCurtains: 'Сәйкес перде табылмады',
     clickToCollapse: 'Жабу үшін қайта басыңыз',
+    color_bordo: 'Қызғылт қоңыр',
+    color_beige: 'Қоныр-сарғыш',
   },
 };
 
