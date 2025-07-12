@@ -17,7 +17,7 @@ export default function OrderForm() {
     e.preventDefault();
     setError('');
     try {
-      const res = await fetch('https://curtain-on9z.onrender.com/api/order', {
+      const res = await fetch('curtain-production.up.railway.app', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
