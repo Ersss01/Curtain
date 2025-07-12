@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { LangContext, translations } from './i18n';
 
 const designs = {
@@ -41,11 +41,15 @@ const products = [
   
 ];
 
+function isMobile() {
+  return window.innerWidth <= 700;
+}
+
 export default function Catalog() {
-  const { lang } = useContext(LangContext);
+  const { lang } = React.useContext(LangContext);
   const t = translations[lang];
   const [filter, setFilter] = useState({ price: '', design: '', color: '', room: '' });
-  const [openId, setOpenId] = useState(null);
+  const [openProduct, setOpenProduct] = useState(null);
 
   const filtered = products.filter(p => (
     (!filter.price || p.price <= Number(filter.price)) &&
@@ -54,12 +58,8 @@ export default function Catalog() {
     (!filter.room || p.room[lang] === filter.room)
   ));
 
-  function isMobile() {
-    return window.innerWidth <= 700;
-  }
-
   return (
-    <div>
+    <>
       <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
         <input type="number" placeholder={t.priceTo} value={filter.price} onChange={e => setFilter(f => ({ ...f, price: e.target.value }))} style={{ padding: '0.5rem', borderRadius: 6, border: '1px solid #ccc', minWidth: 120 }} />
         <select value={filter.design} onChange={e => setFilter(f => ({ ...f, design: e.target.value }))} style={{ padding: '0.5rem', borderRadius: 6, border: '1px solid #ccc' }}>
@@ -78,15 +78,7 @@ export default function Catalog() {
       <div className="catalog-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
         {filtered.length === 0 && <div>{t.noCurtains}</div>}
         {filtered.map(p => (
-          <div key={p.id} className="card" style={{
-            cursor: 'pointer',
-            position: 'relative',
-            overflow: 'visible',
-            minHeight: 120,
-            gridColumn: openId === p.id ? '1 / -1' : undefined,
-            zIndex: openId === p.id ? 10 : 1,
-            transition: 'all 0.3s',
-          }} onClick={() => setOpenId(openId === p.id ? null : p.id)}>
+          <div key={p.id} className="card" style={{ cursor: 'pointer', position: 'relative', minHeight: 120 }} onClick={() => setOpenProduct(p)}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
               <img src={p.img} alt={p.name[lang]} style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 8, boxShadow: '0 1px 4px rgba(44,62,80,0.07)' }} />
               <div>
@@ -97,27 +89,23 @@ export default function Catalog() {
                 <div style={{ marginTop: 4, color: '#3a7bd5', fontWeight: 500 }}>{t.price}: {p.price} тг</div>
               </div>
             </div>
-            {openId === p.id && (
-              <div style={{
-                marginTop: 14,
-                background: '#eaf1fb',
-                borderRadius: 10,
-                padding: 12,
-                boxShadow: '0 2px 8px rgba(44,62,80,0.07)',
-                textAlign: 'center',
-                zIndex: 10,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-              }}>
-                <img src={p.img} alt={p.name[lang]} style={isMobile() ? { width: '100%', maxWidth: '100vw', height: 'auto', objectFit: 'contain', borderRadius: 10, marginBottom: 10, display: 'block', margin: '0 auto' } : { width: '100%', maxHeight: 340, objectFit: 'cover', borderRadius: 8, marginBottom: 10 }} />
-                <div style={{ color: '#23272f', fontSize: 15, marginBottom: 6 }}>{p.desc[lang]}</div>
-                <div style={{ fontSize: 13, color: '#888' }}>{t.clickToCollapse}</div>
-              </div>
-            )}
           </div>
         ))}
       </div>
-    </div>
+      {openProduct && (
+        <div className="gallery-modal" onClick={() => setOpenProduct(null)}>
+          <div style={{ background: '#fff', borderRadius: 16, maxWidth: isMobile() ? '96vw' : 500, width: '100%', padding: 24, boxShadow: '0 8px 32px rgba(44,62,80,0.13)', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }} onClick={e => e.stopPropagation()}>
+            <img src={openProduct.img} alt={openProduct.name[lang]} style={{ width: '100%', maxWidth: 400, height: 'auto', objectFit: 'contain', borderRadius: 12, marginBottom: 18, background: '#f8fafd' }} />
+            <div style={{ fontWeight: 600, fontSize: 20, marginBottom: 8 }}>{openProduct.name[lang]}</div>
+            <div style={{ marginBottom: 6 }}>{t.design}: {openProduct.design[lang]}</div>
+            <div style={{ marginBottom: 6 }}>{t.color}: {openProduct.color[lang]}</div>
+            <div style={{ marginBottom: 6 }}>{t.room}: {openProduct.room[lang]}</div>
+            <div style={{ color: '#3a7bd5', fontWeight: 500, marginBottom: 10 }}>{t.price}: {openProduct.price} тг</div>
+            <div style={{ color: '#23272f', fontSize: 15, marginBottom: 10 }}>{openProduct.desc[lang]}</div>
+            <button onClick={() => setOpenProduct(null)} style={{ marginTop: 8, background: '#eaf1fb', color: '#3a7bd5', fontWeight: 700, border: 'none', borderRadius: 8, padding: '0.7rem 1.2rem', fontSize: 16, cursor: 'pointer' }}>Закрыть</button>
+          </div>
+        </div>
+      )}
+    </>
   );
 } 
