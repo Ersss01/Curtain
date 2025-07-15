@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 
 const images = [
   'https://i.pinimg.com/1200x/ce/ee/cb/ceeecb35d69a11e524ef15743372fc5f.jpg',
@@ -14,6 +15,27 @@ const images = [
   'https://i.pinimg.com/1200x/50/0e/a3/500ea3447b1080d093f2fb8ad902fad9.jpg',
   'https://i.pinimg.com/1200x/6e/d1/72/6ed17241728bb641d65b895287777260.jpg',
 ];
+
+function GalleryModal({ src, alt, onClose }) {
+  if (!src) return null;
+  return ReactDOM.createPortal(
+    <div className="gallery-modal" onClick={onClose}>
+      <img
+        src={src}
+        alt={alt}
+        onClick={e => e.stopPropagation()}
+        style={{
+          maxWidth: '96vw',
+          maxHeight: '80vh',
+          borderRadius: 16,
+          boxShadow: '0 8px 32px rgba(44,62,80,0.13)',
+          background: '#fff',
+        }}
+      />
+    </div>,
+    document.body
+  );
+}
 
 export default function Gallery() {
   const [openIdx, setOpenIdx] = useState(null);
@@ -56,13 +78,11 @@ export default function Gallery() {
         ))}
       </div>
       {openIdx !== null && (
-        <div className="gallery-modal" onClick={() => setOpenIdx(null)}>
-          <img
-            src={images[openIdx]}
-            alt={`Шторы ${openIdx+1}`}
-            onClick={e => e.stopPropagation()}
-          />
-        </div>
+        <GalleryModal
+          src={images[openIdx]}
+          alt={`Шторы ${openIdx+1}`}
+          onClose={() => setOpenIdx(null)}
+        />
       )}
     </>
   );
