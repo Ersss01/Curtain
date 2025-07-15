@@ -3,6 +3,7 @@ const axios = require('axios');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
+const multer = require('multer');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -12,6 +13,8 @@ const TELEGRAM_TOKEN = '7857320725:AAGXrR03oYoktLmxX-3NgfyRTdHJWiO1Vfg';
 const TELEGRAM_CHAT_ID = '-1002770049811';
 
 const REVIEWS_PATH = path.join(__dirname, 'reviews.json');
+
+const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
 app.use(cors());
 app.use(express.json());
@@ -49,17 +52,27 @@ app.get('/api/reviews', (req, res) => {
   });
 });
 
-// Добавить новый отзыв
-app.post('/api/reviews', (req, res) => {
-  const { name, text } = req.body;
+// Добавить новый отзыв с поддержкой фото и рейтинга
+app.post('/api/reviews', upload.single('image'), (req, res) => {
+  const { name, text, rating } = req.body;
   if (!name || !text) return res.status(400).json({ error: 'Имя и текст обязательны' });
   fs.readFile(REVIEWS_PATH, 'utf8', (err, data) => {
     let reviews = [];
     if (!err) {
       try { reviews = JSON.parse(data); } catch {}
     }
-    // Генерируем уникальный id
-    const newReview = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8), name, text, date: new Date().toLocaleDateString() };
+    let image = null;
+    if (req.file) {
+      image = '/uploads/' + req.file.filename;
+    }
+    const newReview = {
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
+      name,
+      text,
+      date: new Date().toLocaleDateString(),
+      image,
+      rating: rating ? Number(rating) : null
+    };
     reviews.unshift(newReview);
     fs.writeFile(REVIEWS_PATH, JSON.stringify(reviews, null, 2), err2 => {
       if (err2) return res.status(500).json({ error: 'Ошибка сохранения' });
@@ -67,6 +80,9 @@ app.post('/api/reviews', (req, res) => {
     });
   });
 });
+
+// Раздача загруженных файлов
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Удалить отзыв по id
 app.delete('/api/reviews/:id', (req, res) => {
