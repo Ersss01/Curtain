@@ -57,6 +57,7 @@ export default function Catalog() {
   // Мультивыбор: массивы для каждого фильтра
   const [filter, setFilter] = useState({ price: '', designs: [], colors: [], rooms: [] });
   const [openProduct, setOpenProduct] = useState(null);
+  const [filterOpen, setFilterOpen] = useState(true); // состояние для сворачивания фильтра
 
   // Фильтрация с мультивыбором
   const filtered = products.filter(p => (
@@ -82,39 +83,68 @@ export default function Catalog() {
 
   return (
     <>
-      <div style={{ display: 'flex', gap: '2rem', marginBottom: '2rem', flexWrap: 'wrap', alignItems: 'flex-start' }}>
-        <div style={{ minWidth: 140 }}>
-          <input type="number" placeholder={t.priceTo} value={filter.price} onChange={e => setFilter(f => ({ ...f, price: e.target.value }))} style={{ padding: '0.5rem', borderRadius: 6, border: '1px solid #ccc', width: '100%' }} />
+      <button
+        onClick={() => setFilterOpen(open => !open)}
+        style={{
+          marginBottom: 14,
+          background: '#3a7bd5',
+          color: '#fff',
+          border: 'none',
+          borderRadius: 8,
+          padding: '0.7rem 1.2rem',
+          fontWeight: 700,
+          fontSize: 16,
+          cursor: 'pointer',
+          boxShadow: '0 2px 8px rgba(44,62,80,0.07)',
+          transition: 'background 0.2s, color 0.2s',
+        }}
+      >
+        {filterOpen ? 'Скрыть фильтр ▲' : 'Показать фильтр ▼'}
+      </button>
+
+      <div
+        style={{
+          maxHeight: filterOpen ? 1000 : 0,
+          overflow: 'hidden',
+          transition: 'max-height 0.5s cubic-bezier(0.4,0,0.2,1)',
+          marginBottom: filterOpen ? 24 : 0,
+        }}
+      >
+        <div style={{ display: 'flex', gap: '2rem', marginBottom: '2rem', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+          <div style={{ minWidth: 140 }}>
+            <input type="number" placeholder={t.priceTo} value={filter.price} onChange={e => setFilter(f => ({ ...f, price: e.target.value }))} style={{ padding: '0.5rem', borderRadius: 6, border: '1px solid #ccc', width: '100%' }} />
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ fontWeight: 600, marginBottom: 4 }}>{t.design}</div>
+            {designs[lang].map(d => (
+              <label key={d} style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: 15 }}>
+                <input type="checkbox" checked={filter.designs.includes(d)} onChange={() => handleCheckbox('designs', d)} />
+                {d}
+              </label>
+            ))}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ fontWeight: 600, marginBottom: 4 }}>{t.color}</div>
+            {colors[lang].map(c => (
+              <label key={c} style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: 15 }}>
+                <input type="checkbox" checked={filter.colors.includes(c)} onChange={() => handleCheckbox('colors', c)} />
+                {c}
+              </label>
+            ))}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ fontWeight: 600, marginBottom: 4 }}>{t.room}</div>
+            {rooms[lang].map(r => (
+              <label key={r} style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: 15 }}>
+                <input type="checkbox" checked={filter.rooms.includes(r)} onChange={() => handleCheckbox('rooms', r)} />
+                {r}
+              </label>
+            ))}
+          </div>
+          <button onClick={resetFilters} style={{ height: 40, alignSelf: 'flex-end', background: '#f5f7fa', color: '#3a7bd5', border: '1px solid #c3d0e8', borderRadius: 8, padding: '0 18px', fontWeight: 600, cursor: 'pointer', marginLeft: 12 }}>Сбросить</button>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <div style={{ fontWeight: 600, marginBottom: 4 }}>{t.design}</div>
-          {designs[lang].map(d => (
-            <label key={d} style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: 15 }}>
-              <input type="checkbox" checked={filter.designs.includes(d)} onChange={() => handleCheckbox('designs', d)} />
-              {d}
-            </label>
-          ))}
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <div style={{ fontWeight: 600, marginBottom: 4 }}>{t.color}</div>
-          {colors[lang].map(c => (
-            <label key={c} style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: 15 }}>
-              <input type="checkbox" checked={filter.colors.includes(c)} onChange={() => handleCheckbox('colors', c)} />
-              {c}
-            </label>
-          ))}
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <div style={{ fontWeight: 600, marginBottom: 4 }}>{t.room}</div>
-          {rooms[lang].map(r => (
-            <label key={r} style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: 15 }}>
-              <input type="checkbox" checked={filter.rooms.includes(r)} onChange={() => handleCheckbox('rooms', r)} />
-              {r}
-            </label>
-          ))}
-        </div>
-        <button onClick={resetFilters} style={{ height: 40, alignSelf: 'flex-end', background: '#f5f7fa', color: '#3a7bd5', border: '1px solid #c3d0e8', borderRadius: 8, padding: '0 18px', fontWeight: 600, cursor: 'pointer', marginLeft: 12 }}>Сбросить</button>
       </div>
+
       <div className="catalog-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
         {filtered.length === 0 && <div>{t.noCurtains}</div>}
         {filtered.map(p => (
