@@ -87,7 +87,6 @@ function App() {
         </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Shtory Lux. Все права защищены.</span>
-          <a href="#" className="footer-policy">Политика конфиденциальности</a>
         </div>
       </footer>
     </div>
