@@ -76,13 +76,11 @@ function App() {
         <div className="footer-content">
           <div className="footer-brand">Shtory Lux</div>
           <div className="footer-contacts">
-            <div>Телефон: <a href="tel:+77001234567">+7 700 123 45 67</a></div>
-            <div>Email: <a href="mailto:info@shtorylux.kz">info@shtorylux.kz</a></div>
+            <div>Телефон: <a href="tel:+77007764515">+7 700 123 45 67</a></div>
+            <div>Email: <a href="sanat.temirbekov76@mail.ru">info@shtorylux.kz</a></div>
           </div>
           <div className="footer-socials">
-            <a href="https://wa.me/77001234567" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="footer-social-icon">🟢</a>
-            <a href="https://t.me/yourtelegram" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="footer-social-icon">🔵</a>
-            <a href="https://instagram.com/yourinsta" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="footer-social-icon">🟣</a>
+            <a href="https://wa.me/77007764515" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="footer-social-icon">🟢</a>
           </div>
         </div>
         <div className="footer-bottom">
