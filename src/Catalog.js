@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { LangContext, translations } from './i18n';
 
 const designs = {
@@ -58,6 +58,13 @@ export default function Catalog() {
   const [filter, setFilter] = useState({ price: '', designs: [], colors: [], rooms: [] });
   const [openProduct, setOpenProduct] = useState(null);
   const [filterOpen, setFilterOpen] = useState(true); // состояние для сворачивания фильтра
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    if (openProduct && modalRef.current) {
+      modalRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [openProduct]);
 
   // Фильтрация с мультивыбором
   const filtered = products.filter(p => (
@@ -181,7 +188,7 @@ export default function Catalog() {
         ))}
       </div>
       {openProduct && (
-        <div className="gallery-modal" onClick={() => setOpenProduct(null)}>
+        <div className="gallery-modal" onClick={() => setOpenProduct(null)} ref={modalRef}>
           <div style={{
             background: '#fff',
             borderRadius: 16,
