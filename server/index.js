@@ -58,11 +58,27 @@ app.post('/api/reviews', (req, res) => {
     if (!err) {
       try { reviews = JSON.parse(data); } catch {}
     }
-    const newReview = { name, text, date: new Date().toLocaleDateString() };
+    // Генерируем уникальный id
+    const newReview = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8), name, text, date: new Date().toLocaleDateString() };
     reviews.unshift(newReview);
     fs.writeFile(REVIEWS_PATH, JSON.stringify(reviews, null, 2), err2 => {
       if (err2) return res.status(500).json({ error: 'Ошибка сохранения' });
       res.json(newReview);
+    });
+  });
+});
+
+// Удалить отзыв по id
+app.delete('/api/reviews/:id', (req, res) => {
+  const id = req.params.id;
+  fs.readFile(REVIEWS_PATH, 'utf8', (err, data) => {
+    if (err) return res.status(500).json({ error: 'Ошибка чтения отзывов' });
+    let reviews = [];
+    try { reviews = JSON.parse(data); } catch {}
+    const newReviews = reviews.filter(r => String(r.id) !== String(id));
+    fs.writeFile(REVIEWS_PATH, JSON.stringify(newReviews, null, 2), err2 => {
+      if (err2) return res.status(500).json({ error: 'Ошибка сохранения' });
+      res.json({ success: true });
     });
   });
 });
