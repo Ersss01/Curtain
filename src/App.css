@@ -668,3 +668,14 @@ button:hover {
     font-size: 0.95rem;
   }
 }
+
+/* --- Анимация появления секций --- */
+.fade-section {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeInUpSection 0.85s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+@keyframes fadeInUpSection {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}

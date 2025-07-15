@@ -59,19 +59,19 @@ function App() {
         </ul>
       </nav>
       {/* Здесь будут разделы сайта */}
-      <section id="catalog">
+      <section id="catalog" className="fade-section" style={{ animationDelay: '0.1s' }}>
         <h2>{t.catalogTitle}</h2>
         <Catalog />
       </section>
-      <section id="gallery">
+      <section id="gallery" className="fade-section" style={{ animationDelay: '0.25s' }}>
         <h2>{t.galleryTitle}</h2>
         <Gallery />
       </section>
-      <section id="reviews">
+      <section id="reviews" className="fade-section" style={{ animationDelay: '0.4s' }}>
         <h2>{t.reviewsTitle}</h2>
         <Reviews />
       </section>
-      <section id="order">
+      <section id="order" className="fade-section" style={{ animationDelay: '0.55s' }}>
         <h2>{t.orderTitle}</h2>
         <OrderForm />
       </section>
