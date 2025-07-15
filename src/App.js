@@ -75,6 +75,25 @@ function App() {
         <h2>{t.orderTitle}</h2>
         <OrderForm />
       </section>
+      {/* Футер */}
+      <footer className="main-footer">
+        <div className="footer-content">
+          <div className="footer-brand">Shtory Lux</div>
+          <div className="footer-contacts">
+            <div>Телефон: <a href="tel:+77001234567">+7 700 123 45 67</a></div>
+            <div>Email: <a href="mailto:info@shtorylux.kz">info@shtorylux.kz</a></div>
+          </div>
+          <div className="footer-socials">
+            <a href="https://wa.me/77001234567" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="footer-social-icon">🟢</a>
+            <a href="https://t.me/yourtelegram" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="footer-social-icon">🔵</a>
+            <a href="https://instagram.com/yourinsta" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="footer-social-icon">🟣</a>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <span>© {new Date().getFullYear()} Shtory Lux. Все права защищены.</span>
+          <a href="#" className="footer-policy">Политика конфиденциальности</a>
+        </div>
+      </footer>
     </div>
   );
 }
