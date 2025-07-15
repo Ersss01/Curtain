@@ -97,12 +97,6 @@ export default function Catalog() {
   const [filterOpen, setFilterOpen] = useState(true); // состояние для сворачивания фильтра
   // const modalRef = useRef(null); // больше не нужен
 
-  useEffect(() => {
-    if (openProduct) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }, [openProduct]);
-
   // Фильтрация с мультивыбором
   const filtered = products.filter(p => (
     (!filter.price || p.price <= Number(filter.price)) &&
