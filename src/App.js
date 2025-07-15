@@ -34,15 +34,15 @@ function App() {
         <div className="benefits-list">
           <div className="benefit-item">
             <span className="benefit-icon" role="img" aria-label="delivery">🚚</span>
-            <span className="benefit-text">Доставка по Казахстану</span>
+            <span className="benefit-text">{t.benefit_delivery}</span>
           </div>
           <div className="benefit-item">
             <span className="benefit-icon" role="img" aria-label="quality">✅</span>
-            <span className="benefit-text">Гарантия качества</span>
+            <span className="benefit-text">{t.benefit_quality}</span>
           </div>
           <div className="benefit-item">
             <span className="benefit-icon" role="img" aria-label="design">🎨</span>
-            <span className="benefit-text">Индивидуальный дизайн</span>
+            <span className="benefit-text">{t.benefit_design}</span>
           </div>
         </div>
       </section>
