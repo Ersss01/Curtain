@@ -19,6 +19,16 @@ function App() {
   const t = translations[lang];
   return (
     <div className="App">
+      {/* Hero-секция */}
+      <section className="hero-section">
+        <div className="hero-content">
+          <h1 className="hero-title">{t.heroTitle || 'Шторы для уюта и стиля вашего дома'}</h1>
+          <div className="hero-subtitle">{t.heroSubtitle || 'Большой выбор, индивидуальный подход, быстрая доставка по Казахстану.'}</div>
+          <button className="hero-btn" onClick={e => scrollToSection(e, 'catalog')}>
+            {t.heroBtn || 'Перейти в каталог'}
+          </button>
+        </div>
+      </section>
       <nav className="App-nav">
         <ul>
           <li><a href="#catalog" onClick={e => scrollToSection(e, 'catalog')}>{t.catalog}</a></li>
