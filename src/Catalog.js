@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { LangContext, translations } from './i18n';
 
 const designs = {
@@ -49,6 +50,42 @@ const products = [
 
 function isMobile() {
   return window.innerWidth <= 700;
+}
+
+function ProductModal({ product, lang, t, onClose }) {
+  if (!product) return null;
+  return ReactDOM.createPortal(
+    <div className="gallery-modal" onClick={onClose}>
+      <div style={{
+        background: '#fff',
+        borderRadius: 16,
+        width: '100%',
+        maxWidth: 400,
+        minWidth: 0,
+        boxSizing: 'border-box',
+        margin: '0 10px',
+        padding: '18px 10px',
+        boxShadow: '0 8px 32px rgba(44,62,80,0.13)',
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        maxHeight: isMobile() ? '90vh' : 600,
+        overflowY: 'auto',
+        zIndex: 2001
+      }} onClick={e => e.stopPropagation()}>
+        <img src={product.img} alt={product.name?.[lang] || ''} style={{ width: '100%', maxWidth: 320, height: 'auto', maxHeight: 220, objectFit: 'contain', borderRadius: 12, marginBottom: 14, background: '#f8fafd' }} />
+        <div style={{ fontWeight: 600, fontSize: 18, marginBottom: 8, textAlign: 'center' }}>{product.name?.[lang]}</div>
+        <div style={{ marginBottom: 6 }}>{t.design}: {product.design?.[lang]}</div>
+        <div style={{ marginBottom: 6 }}>{t.color}: {product.color?.[lang]}</div>
+        <div style={{ marginBottom: 6 }}>{t.room}: {product.room?.[lang]}</div>
+        <div style={{ color: '#3a7bd5', fontWeight: 500, marginBottom: 10 }}>{t.price}: {product.price} тг</div>
+        <div style={{ color: '#23272f', fontSize: 15, marginBottom: 18, textAlign: 'center' }}>{product.desc?.[lang]}</div>
+        <button onClick={onClose} style={{ marginTop: 'auto', background: '#eaf1fb', color: '#3a7bd5', fontWeight: 700, border: 'none', borderRadius: 8, padding: '0.7rem 1.2rem', fontSize: 16, cursor: 'pointer' }}>Закрыть</button>
+      </div>
+    </div>,
+    document.body
+  );
 }
 
 export default function Catalog() {
@@ -188,35 +225,7 @@ export default function Catalog() {
         ))}
       </div>
       {openProduct && (
-        <div className="gallery-modal" onClick={() => setOpenProduct(null)}>
-          <div style={{
-            background: '#fff',
-            borderRadius: 16,
-            width: '100%',
-            maxWidth: 400,
-            minWidth: 0,
-            boxSizing: 'border-box',
-            margin: '0 10px',
-            padding: '18px 10px',
-            boxShadow: '0 8px 32px rgba(44,62,80,0.13)',
-            position: 'relative',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            maxHeight: isMobile() ? '90vh' : 600,
-            overflowY: 'auto',
-            zIndex: 2001
-          }} onClick={e => e.stopPropagation()}>
-            <img src={openProduct.img} alt={openProduct.name?.[lang] || ''} style={{ width: '100%', maxWidth: 320, height: 'auto', maxHeight: 220, objectFit: 'contain', borderRadius: 12, marginBottom: 14, background: '#f8fafd' }} />
-            <div style={{ fontWeight: 600, fontSize: 18, marginBottom: 8, textAlign: 'center' }}>{openProduct.name?.[lang]}</div>
-            <div style={{ marginBottom: 6 }}>{t.design}: {openProduct.design?.[lang]}</div>
-            <div style={{ marginBottom: 6 }}>{t.color}: {openProduct.color?.[lang]}</div>
-            <div style={{ marginBottom: 6 }}>{t.room}: {openProduct.room?.[lang]}</div>
-            <div style={{ color: '#3a7bd5', fontWeight: 500, marginBottom: 10 }}>{t.price}: {openProduct.price} тг</div>
-            <div style={{ color: '#23272f', fontSize: 15, marginBottom: 18, textAlign: 'center' }}>{openProduct.desc?.[lang]}</div>
-            <button onClick={() => setOpenProduct(null)} style={{ marginTop: 'auto', background: '#eaf1fb', color: '#3a7bd5', fontWeight: 700, border: 'none', borderRadius: 8, padding: '0.7rem 1.2rem', fontSize: 16, cursor: 'pointer' }}>Закрыть</button>
-          </div>
-        </div>
+        <ProductModal product={openProduct} lang={lang} t={t} onClose={() => setOpenProduct(null)} />
       )}
       <style>{`
         @keyframes fadeInUp {
