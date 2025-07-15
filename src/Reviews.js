@@ -7,12 +7,25 @@ export default function Reviews() {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [altPressed, setAltPressed] = useState(false); // для скрытой кнопки удаления
 
   useEffect(() => {
     fetch('https://curtain-production.up.railway.app/api/reviews')
       .then(r => r.json())
       .then(data => { setReviews(data); setLoading(false); })
       .catch(() => setLoading(false));
+  }, []);
+
+  // Слежение за нажатием Alt
+  useEffect(() => {
+    const handleDown = e => { if (e.altKey) setAltPressed(true); };
+    const handleUp = e => { if (!e.altKey) setAltPressed(false); };
+    window.addEventListener('keydown', handleDown);
+    window.addEventListener('keyup', handleUp);
+    return () => {
+      window.removeEventListener('keydown', handleDown);
+      window.removeEventListener('keyup', handleUp);
+    };
   }, []);
 
   const handleChange = e => {
@@ -40,6 +53,18 @@ export default function Reviews() {
       setError('Не удалось отправить отзыв. Попробуйте позже.');
     }
     setSending(false);
+  };
+
+  // Удаление отзыва
+  const handleDelete = async (id) => {
+    if (!window.confirm('Удалить этот отзыв?')) return;
+    try {
+      const res = await fetch(`https://curtain-production.up.railway.app/api/reviews/${id}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error('Ошибка удаления');
+      setReviews(r => r.filter(rv => rv.id !== id));
+    } catch {
+      alert('Не удалось удалить отзыв.');
+    }
   };
 
   return (
@@ -70,10 +95,18 @@ export default function Reviews() {
         {success && <div style={{ color: '#3a7bd5', marginTop: 8, textAlign: 'center' }}>Спасибо за ваш отзыв!</div>}
       </form>
       {loading ? <div>Загрузка отзывов...</div> : reviews.map((r, i) => (
-        <div key={i} className="card">
+        <div key={r.id || i} className="card" style={{ position: 'relative' }}>
           <div style={{ fontWeight: 600, marginBottom: 4 }}>{r.name}</div>
           <div style={{ color: '#555', marginBottom: 6 }}>{r.text}</div>
           <div style={{ fontSize: 12, color: '#888' }}>{r.date}</div>
+          {altPressed && (
+            <button
+              onClick={() => handleDelete(r.id)}
+              style={{ position: 'absolute', top: 10, right: 10, background: '#fff0f0', color: '#d32f2f', border: '1px solid #d32f2f', borderRadius: 6, padding: '0.3rem 0.7rem', fontWeight: 600, fontSize: 14, cursor: 'pointer', zIndex: 2 }}
+            >
+              Удалить
+            </button>
+          )}
         </div>
       ))}
     </div>
