@@ -203,8 +203,22 @@ export default function Catalog() {
               <img src={p.img} alt={p.name[lang]} style={{ width: 90, height: 90, objectFit: 'cover', borderRadius: 12, boxShadow: '0 2px 8px rgba(44,62,80,0.10)' }} />
               <div style={{ fontWeight: 600, fontSize: '1.13rem', marginBottom: 2, textAlign: 'center' }}>{p.name[lang]}</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 2, justifyContent: 'center' }}>
-                <span className="catalog-color-dot" style={{ background: colorMap[p.color[lang]] || '#eee', border: '1.5px solid #c3d0e8' }}></span>
-                <span style={{ fontSize: 15 }}>{p.color[lang]}</span>
+                {p.color[lang].split('-').map((c, idx) => (
+                  <span
+                    key={idx}
+                    className="catalog-color-dot"
+                    style={{
+                      background: colorMap[c.trim()] || '#eee',
+                      border: '1.5px solid #c3d0e8',
+                      width: 22,
+                      height: 22,
+                      borderRadius: '50%',
+                      display: 'inline-block',
+                      marginLeft: idx > 0 ? -6 : 0
+                    }}
+                  />
+                ))}
+                <span style={{ fontSize: 15, marginLeft: 8 }}>{p.color[lang]}</span>
               </div>
               <div style={{ fontSize: 15, color: '#888', marginBottom: 2 }}>{t.design}: {p.design[lang]}</div>
               <div style={{ fontSize: 15, color: '#888', marginBottom: 2 }}>{t.room}: {p.room[lang]}</div>
