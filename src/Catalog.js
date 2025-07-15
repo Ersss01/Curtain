@@ -58,7 +58,13 @@ export default function Catalog() {
   const [filter, setFilter] = useState({ price: '', designs: [], colors: [], rooms: [] });
   const [openProduct, setOpenProduct] = useState(null);
   const [filterOpen, setFilterOpen] = useState(true); // состояние для сворачивания фильтра
-  // Удаляем useRef, useEffect и modalRef, связанные с модальным окном
+  // const modalRef = useRef(null); // больше не нужен
+
+  useEffect(() => {
+    if (openProduct) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [openProduct]);
 
   // Фильтрация с мультивыбором
   const filtered = products.filter(p => (
@@ -156,62 +162,62 @@ export default function Catalog() {
       <div className="catalog-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
         {filtered.length === 0 && <div>{t.noCurtains}</div>}
         {filtered.map((p, i) => (
-          <React.Fragment key={p.id}>
-            <div
-              className="card product-card-anim"
-              style={{ cursor: 'pointer', position: 'relative', minHeight: 160, animation: `fadeInUp 0.7s cubic-bezier(0.4,0,0.2,1) both`, animationDelay: `${i * 0.07}s` }}
-              onClick={() => setOpenProduct(p)}
-            >
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
-                <img src={p.img} alt={p.name[lang]} style={{ width: 90, height: 90, objectFit: 'cover', borderRadius: 12, boxShadow: '0 2px 8px rgba(44,62,80,0.10)' }} />
-                <div style={{ fontWeight: 600, fontSize: '1.13rem', marginBottom: 2, textAlign: 'center' }}>{p.name[lang]}</div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 2, justifyContent: 'center' }}>
-                  <span className="catalog-color-dot" style={{ background: colorMap[p.color[lang]] || '#eee', border: '1.5px solid #c3d0e8' }}></span>
-                  <span style={{ fontSize: 15 }}>{p.color[lang]}</span>
-                </div>
-                <div style={{ fontSize: 15, color: '#888', marginBottom: 2 }}>{t.design}: {p.design[lang]}</div>
-                <div style={{ fontSize: 15, color: '#888', marginBottom: 2 }}>{t.room}: {p.room[lang]}</div>
-                <div style={{ marginTop: 2, color: '#3a7bd5', fontWeight: 700, fontSize: 17 }}>{t.price}: {p.price} тг</div>
-                <button
-                  className="product-more-btn"
-                  onClick={e => { e.stopPropagation(); setOpenProduct(p); }}
-                  style={{ marginTop: 8 }}
-                >Подробнее</button>
+          <div
+            key={p.id}
+            className="card product-card-anim"
+            style={{ cursor: 'pointer', position: 'relative', minHeight: 160, animation: `fadeInUp 0.7s cubic-bezier(0.4,0,0.2,1) both`, animationDelay: `${i * 0.07}s` }}
+            onClick={() => setOpenProduct(p)}
+          >
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
+              <img src={p.img} alt={p.name[lang]} style={{ width: 90, height: 90, objectFit: 'cover', borderRadius: 12, boxShadow: '0 2px 8px rgba(44,62,80,0.10)' }} />
+              <div style={{ fontWeight: 600, fontSize: '1.13rem', marginBottom: 2, textAlign: 'center' }}>{p.name[lang]}</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 2, justifyContent: 'center' }}>
+                <span className="catalog-color-dot" style={{ background: colorMap[p.color[lang]] || '#eee', border: '1.5px solid #c3d0e8' }}></span>
+                <span style={{ fontSize: 15 }}>{p.color[lang]}</span>
               </div>
+              <div style={{ fontSize: 15, color: '#888', marginBottom: 2 }}>{t.design}: {p.design[lang]}</div>
+              <div style={{ fontSize: 15, color: '#888', marginBottom: 2 }}>{t.room}: {p.room[lang]}</div>
+              <div style={{ marginTop: 2, color: '#3a7bd5', fontWeight: 700, fontSize: 17 }}>{t.price}: {p.price} тг</div>
+              <button
+                className="product-more-btn"
+                onClick={e => { e.stopPropagation(); setOpenProduct(p); }}
+                style={{ marginTop: 8 }}
+              >Подробнее</button>
             </div>
-            {openProduct && openProduct.id === p.id && (
-              <div style={{
-                background: '#fff',
-                borderRadius: 16,
-                width: '100%',
-                maxWidth: 400,
-                minWidth: 0,
-                boxSizing: 'border-box',
-                margin: '16px auto',
-                padding: '18px 10px',
-                boxShadow: '0 8px 32px rgba(44,62,80,0.13)',
-                position: 'relative',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                maxHeight: 600,
-                overflowY: 'auto',
-                zIndex: 2
-              }}>
-                <img src={openProduct.img} alt={openProduct.name?.[lang] || ''} style={{ width: '100%', maxWidth: 320, height: 'auto', maxHeight: 220, objectFit: 'contain', borderRadius: 12, marginBottom: 14, background: '#f8fafd' }} />
-                <div style={{ fontWeight: 600, fontSize: 18, marginBottom: 8, textAlign: 'center' }}>{openProduct.name?.[lang]}</div>
-                <div style={{ marginBottom: 6 }}>{t.design}: {openProduct.design?.[lang]}</div>
-                <div style={{ marginBottom: 6 }}>{t.color}: {openProduct.color?.[lang]}</div>
-                <div style={{ marginBottom: 6 }}>{t.room}: {openProduct.room?.[lang]}</div>
-                <div style={{ color: '#3a7bd5', fontWeight: 500, marginBottom: 10 }}>{t.price}: {openProduct.price} тг</div>
-                <div style={{ color: '#23272f', fontSize: 15, marginBottom: 18, textAlign: 'center' }}>{openProduct.desc?.[lang]}</div>
-                <button onClick={() => setOpenProduct(null)} style={{ marginTop: 'auto', background: '#eaf1fb', color: '#3a7bd5', fontWeight: 700, border: 'none', borderRadius: 8, padding: '0.7rem 1.2rem', fontSize: 16, cursor: 'pointer' }}>Закрыть</button>
-              </div>
-            )}
-          </React.Fragment>
+          </div>
         ))}
       </div>
-      {/* Удаляем рендер модального окна .gallery-modal внизу файла */}
+      {openProduct && (
+        <div className="gallery-modal" onClick={() => setOpenProduct(null)}>
+          <div style={{
+            background: '#fff',
+            borderRadius: 16,
+            width: '100%',
+            maxWidth: 400,
+            minWidth: 0,
+            boxSizing: 'border-box',
+            margin: '0 10px',
+            padding: '18px 10px',
+            boxShadow: '0 8px 32px rgba(44,62,80,0.13)',
+            position: 'relative',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            maxHeight: isMobile() ? '90vh' : 600,
+            overflowY: 'auto',
+            zIndex: 2001
+          }} onClick={e => e.stopPropagation()}>
+            <img src={openProduct.img} alt={openProduct.name?.[lang] || ''} style={{ width: '100%', maxWidth: 320, height: 'auto', maxHeight: 220, objectFit: 'contain', borderRadius: 12, marginBottom: 14, background: '#f8fafd' }} />
+            <div style={{ fontWeight: 600, fontSize: 18, marginBottom: 8, textAlign: 'center' }}>{openProduct.name?.[lang]}</div>
+            <div style={{ marginBottom: 6 }}>{t.design}: {openProduct.design?.[lang]}</div>
+            <div style={{ marginBottom: 6 }}>{t.color}: {openProduct.color?.[lang]}</div>
+            <div style={{ marginBottom: 6 }}>{t.room}: {openProduct.room?.[lang]}</div>
+            <div style={{ color: '#3a7bd5', fontWeight: 500, marginBottom: 10 }}>{t.price}: {openProduct.price} тг</div>
+            <div style={{ color: '#23272f', fontSize: 15, marginBottom: 18, textAlign: 'center' }}>{openProduct.desc?.[lang]}</div>
+            <button onClick={() => setOpenProduct(null)} style={{ marginTop: 'auto', background: '#eaf1fb', color: '#3a7bd5', fontWeight: 700, border: 'none', borderRadius: 8, padding: '0.7rem 1.2rem', fontSize: 16, cursor: 'pointer' }}>Закрыть</button>
+          </div>
+        </div>
+      )}
       <style>{`
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(30px); }
