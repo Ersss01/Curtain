@@ -527,3 +527,42 @@ button:hover {
     font-size: 1.5rem;
   }
 }
+
+/* --- Улучшенные карточки товаров --- */
+.product-card-anim {
+  transition: box-shadow 0.22s, transform 0.18s;
+}
+.product-card-anim:hover {
+  box-shadow: 0 8px 32px rgba(44,62,80,0.13);
+  transform: translateY(-4px) scale(1.025);
+  z-index: 2;
+}
+.product-more-btn {
+  background: linear-gradient(90deg, #3a7bd5 0%, #00d2ff 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.3rem;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(44,62,80,0.07);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  margin-top: 0.3rem;
+}
+.product-more-btn:hover {
+  background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
+  box-shadow: 0 4px 16px rgba(44,62,80,0.13);
+  transform: translateY(-2px) scale(1.03);
+}
+
+@media (max-width: 700px) {
+  .product-card-anim {
+    min-height: 120px !important;
+    padding: 0.7rem 0.4rem !important;
+  }
+  .product-more-btn {
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+  }
+}

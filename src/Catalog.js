@@ -81,6 +81,13 @@ export default function Catalog() {
   // Сброс фильтров
   const resetFilters = () => setFilter({ price: '', designs: [], colors: [], rooms: [] });
 
+  // Цвета для кружков (примерные)
+  const colorMap = {
+    'Белый': '#fff', 'Бежевый': '#f5e8d7', 'Серый': '#bfc4c9', 'Синий': '#3a7bd5', 'Зелёный': '#7ecb8f', 'Бордовый': '#a8324a', 'Темно синий': '#232a4d', 'Серо-голубой': '#8faecb',
+    'Ақ': '#fff', 'Қоныр-сарғыш': '#f5e8d7', 'Сұр': '#bfc4c9', 'Көк': '#3a7bd5', 'Жасыл': '#7ecb8f', 'Қызғылт қоңыр': '#a8324a', 'Кою көк': '#232a4d', 'Сұр-көк': '#8faecb',
+    'Молочный': '#f9f6f2', 'Сүтті': '#f9f6f2'
+  };
+
   return (
     <>
       <button
@@ -147,17 +154,28 @@ export default function Catalog() {
 
       <div className="catalog-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
         {filtered.length === 0 && <div>{t.noCurtains}</div>}
-        {filtered.map(p => (
-          <div key={p.id} className="card" style={{ cursor: 'pointer', position: 'relative', minHeight: 120 }} onClick={() => setOpenProduct(p)}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <img src={p.img} alt={p.name[lang]} style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 8, boxShadow: '0 1px 4px rgba(44,62,80,0.07)' }} />
-              <div>
-                <div style={{ fontWeight: 600, fontSize: '1.1rem', marginBottom: 4 }}>{p.name[lang]}</div>
-                <div>{t.design}: {p.design[lang]}</div>
-                <div>{t.color}: {p.color[lang]}</div>
-                <div>{t.room}: {p.room[lang]}</div>
-                <div style={{ marginTop: 4, color: '#3a7bd5', fontWeight: 500 }}>{t.price}: {p.price} тг</div>
+        {filtered.map((p, i) => (
+          <div
+            key={p.id}
+            className="card product-card-anim"
+            style={{ cursor: 'pointer', position: 'relative', minHeight: 160, animation: `fadeInUp 0.7s cubic-bezier(0.4,0,0.2,1) both`, animationDelay: `${i * 0.07}s` }}
+            onClick={() => setOpenProduct(p)}
+          >
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
+              <img src={p.img} alt={p.name[lang]} style={{ width: 90, height: 90, objectFit: 'cover', borderRadius: 12, boxShadow: '0 2px 8px rgba(44,62,80,0.10)' }} />
+              <div style={{ fontWeight: 600, fontSize: '1.13rem', marginBottom: 2, textAlign: 'center' }}>{p.name[lang]}</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 2, justifyContent: 'center' }}>
+                <span className="catalog-color-dot" style={{ background: colorMap[p.color[lang]] || '#eee', border: '1.5px solid #c3d0e8' }}></span>
+                <span style={{ fontSize: 15 }}>{p.color[lang]}</span>
               </div>
+              <div style={{ fontSize: 15, color: '#888', marginBottom: 2 }}>{t.design}: {p.design[lang]}</div>
+              <div style={{ fontSize: 15, color: '#888', marginBottom: 2 }}>{t.room}: {p.room[lang]}</div>
+              <div style={{ marginTop: 2, color: '#3a7bd5', fontWeight: 700, fontSize: 17 }}>{t.price}: {p.price} тг</div>
+              <button
+                className="product-more-btn"
+                onClick={e => { e.stopPropagation(); setOpenProduct(p); }}
+                style={{ marginTop: 8 }}
+              >Подробнее</button>
             </div>
           </div>
         ))}
@@ -176,6 +194,12 @@ export default function Catalog() {
           </div>
         </div>
       )}
+      <style>{`
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </>
   );
 } 
