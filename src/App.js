@@ -33,10 +33,6 @@ function App() {
       <section className="benefits-section">
         <div className="benefits-list">
           <div className="benefit-item">
-            <span className="benefit-icon" role="img" aria-label="measure">📏</span>
-            <span className="benefit-text">Бесплатный замер</span>
-          </div>
-          <div className="benefit-item">
             <span className="benefit-icon" role="img" aria-label="delivery">🚚</span>
             <span className="benefit-text">Доставка по Казахстану</span>
           </div>
