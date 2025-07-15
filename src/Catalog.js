@@ -54,32 +54,66 @@ function isMobile() {
 export default function Catalog() {
   const { lang } = React.useContext(LangContext);
   const t = translations[lang];
-  const [filter, setFilter] = useState({ price: '', design: '', color: '', room: '' });
+  // Мультивыбор: массивы для каждого фильтра
+  const [filter, setFilter] = useState({ price: '', designs: [], colors: [], rooms: [] });
   const [openProduct, setOpenProduct] = useState(null);
 
+  // Фильтрация с мультивыбором
   const filtered = products.filter(p => (
     (!filter.price || p.price <= Number(filter.price)) &&
-    (!filter.design || p.design[lang] === filter.design) &&
-    (!filter.color || p.color[lang] === filter.color) &&
-    (!filter.room || p.room[lang] === filter.room)
+    (filter.designs.length === 0 || filter.designs.includes(p.design[lang])) &&
+    (filter.colors.length === 0 || filter.colors.includes(p.color[lang])) &&
+    (filter.rooms.length === 0 || filter.rooms.includes(p.room[lang]))
   ));
+
+  // Обработчики чекбоксов
+  const handleCheckbox = (type, value) => {
+    setFilter(f => {
+      const arr = f[type];
+      return {
+        ...f,
+        [type]: arr.includes(value) ? arr.filter(v => v !== value) : [...arr, value]
+      };
+    });
+  };
+
+  // Сброс фильтров
+  const resetFilters = () => setFilter({ price: '', designs: [], colors: [], rooms: [] });
 
   return (
     <>
-      <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
-        <input type="number" placeholder={t.priceTo} value={filter.price} onChange={e => setFilter(f => ({ ...f, price: e.target.value }))} style={{ padding: '0.5rem', borderRadius: 6, border: '1px solid #ccc', minWidth: 120 }} />
-        <select value={filter.design} onChange={e => setFilter(f => ({ ...f, design: e.target.value }))} style={{ padding: '0.5rem', borderRadius: 6, border: '1px solid #ccc' }}>
-          <option value="">{t.design}</option>
-          {designs[lang].map(d => <option key={d} value={d}>{d}</option>)}
-        </select>
-        <select value={filter.color} onChange={e => setFilter(f => ({ ...f, color: e.target.value }))} style={{ padding: '0.5rem', borderRadius: 6, border: '1px solid #ccc' }}>
-          <option value="">{t.color}</option>
-          {colors[lang].map(c => <option key={c} value={c}>{c}</option>)}
-        </select>
-        <select value={filter.room} onChange={e => setFilter(f => ({ ...f, room: e.target.value }))} style={{ padding: '0.5rem', borderRadius: 6, border: '1px solid #ccc' }}>
-          <option value="">{t.room}</option>
-          {rooms[lang].map(r => <option key={r} value={r}>{r}</option>)}
-        </select>
+      <div style={{ display: 'flex', gap: '2rem', marginBottom: '2rem', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+        <div style={{ minWidth: 140 }}>
+          <input type="number" placeholder={t.priceTo} value={filter.price} onChange={e => setFilter(f => ({ ...f, price: e.target.value }))} style={{ padding: '0.5rem', borderRadius: 6, border: '1px solid #ccc', width: '100%' }} />
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div style={{ fontWeight: 600, marginBottom: 4 }}>{t.design}</div>
+          {designs[lang].map(d => (
+            <label key={d} style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: 15 }}>
+              <input type="checkbox" checked={filter.designs.includes(d)} onChange={() => handleCheckbox('designs', d)} />
+              {d}
+            </label>
+          ))}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div style={{ fontWeight: 600, marginBottom: 4 }}>{t.color}</div>
+          {colors[lang].map(c => (
+            <label key={c} style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: 15 }}>
+              <input type="checkbox" checked={filter.colors.includes(c)} onChange={() => handleCheckbox('colors', c)} />
+              {c}
+            </label>
+          ))}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div style={{ fontWeight: 600, marginBottom: 4 }}>{t.room}</div>
+          {rooms[lang].map(r => (
+            <label key={r} style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: 15 }}>
+              <input type="checkbox" checked={filter.rooms.includes(r)} onChange={() => handleCheckbox('rooms', r)} />
+              {r}
+            </label>
+          ))}
+        </div>
+        <button onClick={resetFilters} style={{ height: 40, alignSelf: 'flex-end', background: '#f5f7fa', color: '#3a7bd5', border: '1px solid #c3d0e8', borderRadius: 8, padding: '0 18px', fontWeight: 600, cursor: 'pointer', marginLeft: 12 }}>Сбросить</button>
       </div>
       <div className="catalog-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
         {filtered.length === 0 && <div>{t.noCurtains}</div>}
