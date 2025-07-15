@@ -44,14 +44,6 @@ body {
     transform: rotate(360deg);
   }
 }
-
-.App-nav {
-  background: #fff;
-  box-shadow: 0 2px 12px rgba(44,62,80,0.07);
-  padding: 0.7rem 0;
-  margin-bottom: 2.5rem;
-  border-radius: 0 0 18px 18px;
-}
 .App-nav ul {
   display: flex;
   justify-content: center;
@@ -73,6 +65,46 @@ body {
 .App-nav a:hover {
   background: #eaf1fb;
   color: #3a7bd5;
+}
+/* --- Sticky-меню --- */
+.App-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(44,62,80,0.07);
+  padding: 0.7rem 0;
+  margin-bottom: 2.5rem;
+  border-radius: 0 0 18px 18px;
+  transition: box-shadow 0.22s, background 0.22s;
+}
+.App-nav.sticky {
+  box-shadow: 0 4px 24px rgba(44,62,80,0.13);
+  background: #f8fafd;
+}
+
+/* --- Анимация для кнопок --- */
+button, .product-more-btn, .hero-btn, .catalog-filter-reset {
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+button:active, .product-more-btn:active, .hero-btn:active, .catalog-filter-reset:active {
+  transform: scale(0.97);
+}
+
+/* --- Плавные эффекты для фильтров --- */
+.catalog-filter-checkbox input[type="checkbox"] {
+  transition: accent-color 0.18s, box-shadow 0.18s;
+}
+.catalog-filter-checkbox input[type="checkbox"]:focus {
+  box-shadow: 0 0 0 2px #3a7bd533;
+}
+
+/* --- Ещё плавности для карточек --- */
+.card, .product-card-anim, .review-card-anim {
+  transition: box-shadow 0.22s, transform 0.18s, background 0.18s;
+}
+.card:hover, .product-card-anim:hover, .review-card-anim:hover {
+  background: #f0f6ff;
 }
 
 section {
