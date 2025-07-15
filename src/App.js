@@ -29,6 +29,27 @@ function App() {
           </button>
         </div>
       </section>
+      {/* Блок преимуществ */}
+      <section className="benefits-section">
+        <div className="benefits-list">
+          <div className="benefit-item">
+            <span className="benefit-icon" role="img" aria-label="measure">📏</span>
+            <span className="benefit-text">Бесплатный замер</span>
+          </div>
+          <div className="benefit-item">
+            <span className="benefit-icon" role="img" aria-label="delivery">🚚</span>
+            <span className="benefit-text">Доставка по Казахстану</span>
+          </div>
+          <div className="benefit-item">
+            <span className="benefit-icon" role="img" aria-label="quality">✅</span>
+            <span className="benefit-text">Гарантия качества</span>
+          </div>
+          <div className="benefit-item">
+            <span className="benefit-icon" role="img" aria-label="design">🎨</span>
+            <span className="benefit-text">Индивидуальный дизайн</span>
+          </div>
+        </div>
+      </section>
       <nav className="App-nav">
         <ul>
           <li><a href="#catalog" onClick={e => scrollToSection(e, 'catalog')}>{t.catalog}</a></li>

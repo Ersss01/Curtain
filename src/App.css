@@ -467,3 +467,63 @@ button:hover {
     padding: 0.7rem 1.2rem;
   }
 }
+
+/* --- Блок преимуществ --- */
+.benefits-section {
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(44,62,80,0.07);
+  border-radius: 18px;
+  margin: 0 auto 2.2rem auto;
+  max-width: 950px;
+  padding: 1.2rem 1.5rem 1.1rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeInUp 0.8s cubic-bezier(0.4,0,0.2,1) both;
+}
+.benefits-list {
+  display: flex;
+  gap: 2.5rem;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.benefit-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 110px;
+  animation: fadeInUp 0.7s cubic-bezier(0.4,0,0.2,1) both;
+}
+.benefit-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.2rem;
+  color: #3a7bd5;
+  filter: drop-shadow(0 2px 8px rgba(44,62,80,0.07));
+}
+.benefit-text {
+  font-size: 1.08rem;
+  color: #23272f;
+  font-weight: 600;
+  text-align: center;
+}
+@media (max-width: 700px) {
+  .benefits-section {
+    max-width: 100% !important;
+    padding: 0.7rem 0.2rem 0.7rem 0.2rem;
+    border-radius: 12px;
+  }
+  .benefits-list {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .benefit-item {
+    min-width: 0;
+    font-size: 1rem;
+  }
+  .benefit-icon {
+    font-size: 1.5rem;
+  }
+}
