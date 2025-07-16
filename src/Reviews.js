@@ -91,13 +91,13 @@ export default function Reviews() {
 
   // Удаление отзыва
   const handleDelete = async (id) => {
-    if (!window.confirm('Удалить этот отзыв?')) return;
+    if (!window.confirm(t('deleteConfirm'))) return;
     try {
       const res = await fetch(`https://curtain-production.up.railway.app/api/reviews/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Ошибка удаления');
       setReviews(r => r.filter(rv => rv.id !== id));
     } catch {
-      alert('Не удалось удалить отзыв.');
+      alert(t('deleteError'));
     }
   };
 
@@ -107,7 +107,7 @@ export default function Reviews() {
         <input
           name="name"
           type="text"
-          placeholder={t.name}
+          placeholder={t('name')}
           value={form.name}
           onChange={handleChange}
           required
@@ -115,7 +115,7 @@ export default function Reviews() {
         />
         <textarea
           name="text"
-          placeholder={t.reviewText}
+          placeholder={t('reviewText')}
           value={form.text}
           onChange={handleChange}
           required
@@ -123,7 +123,7 @@ export default function Reviews() {
           style={{ padding: '0.8rem', borderRadius: 8, border: '1.5px solid #dbeafe', fontSize: 16, outline: 'none', resize: 'vertical' }}
         />
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <label style={{ fontWeight: 500, fontSize: 15 }}>{t.yourRating}:</label>
+          <label style={{ fontWeight: 500, fontSize: 15 }}>{t('yourRating')}:</label>
           <StarRating value={form.rating} onChange={r => setForm(f => ({ ...f, rating: r }))} disabled={sending} />
         </div>
         <input
@@ -132,16 +132,16 @@ export default function Reviews() {
           onChange={handleImageChange}
           ref={fileInputRef}
           style={{ fontSize: 15, borderRadius: 8, border: '1.5px solid #dbeafe', padding: '0.5rem' }}
-          placeholder={t.chooseFile}
+          placeholder={t('chooseFile')}
         />
         <button type="submit" disabled={sending} style={{ background: 'linear-gradient(90deg, #3a7bd5 0%, #00d2ff 100%)', color: '#fff', border: 'none', borderRadius: 8, padding: '1rem', fontWeight: 700, fontSize: 17, cursor: 'pointer', boxShadow: '0 2px 8px rgba(44,62,80,0.07)' }}>
-          {sending ? 'Отправка...' : t.leaveReview}
+          {sending ? t('sending') : t('leaveReview')}
         </button>
-        {error && <div style={{ color: 'red', marginTop: 8, textAlign: 'center' }}>{error}</div>}
-        {success && <div style={{ color: '#3a7bd5', marginTop: 8, textAlign: 'center' }}>Спасибо за ваш отзыв!</div>}
+        {error && <div style={{ color: 'red', marginTop: 8, textAlign: 'center' }}>{t('reviewSendError')}</div>}
+        {success && <div style={{ color: '#3a7bd5', marginTop: 8, textAlign: 'center' }}>{t('reviewSuccess')}</div>}
       </form>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
-        {loading ? <div>Загрузка отзывов...</div> : reviews.map((r, i) => (
+        {loading ? <div>{t('reviewsLoading')}</div> : reviews.map((r, i) => (
           <div
             key={r.id || i}
             className="card review-card-anim"
@@ -173,7 +173,7 @@ export default function Reviews() {
                 onClick={() => handleDelete(r.id)}
                 style={{ position: 'absolute', top: 10, right: 10, background: '#fff0f0', color: '#d32f2f', border: '1px solid #d32f2f', borderRadius: 6, padding: '0.3rem 0.7rem', fontWeight: 600, fontSize: 14, cursor: 'pointer', zIndex: 2 }}
               >
-                Удалить
+                {t('delete')}
               </button>
             )}
           </div>

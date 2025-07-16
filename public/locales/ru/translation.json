@@ -1,0 +1,14 @@
+{
+  "name": "Имя",
+  "reviewText": "Ваш отзыв",
+  "yourRating": "Ваша оценка",
+  "chooseFile": "Выбрать файл",
+  "leaveReview": "Оставить отзыв",
+  "sending": "Отправка...",
+  "reviewSuccess": "Спасибо за ваш отзыв!",
+  "reviewSendError": "Не удалось отправить отзыв. Попробуйте позже.",
+  "reviewsLoading": "Загрузка отзывов...",
+  "delete": "Удалить",
+  "deleteConfirm": "Удалить этот отзыв?",
+  "deleteError": "Не удалось удалить отзыв."
+} 
