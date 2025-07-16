@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function StarRating({ value, onChange, disabled }) {
   return (
@@ -21,6 +22,7 @@ function StarRating({ value, onChange, disabled }) {
 }
 
 export default function Reviews() {
+  const { t } = useTranslation();
   const [reviews, setReviews] = useState([]);
   const [form, setForm] = useState({ name: '', text: '', rating: 0 });
   const [image, setImage] = useState(null);
