@@ -139,7 +139,7 @@ export default function Reviews() {
           {sending ? (t.sending || 'Отправка...') : (t.leaveReview || 'Оставить отзыв')}
         </button>
         {error && <div style={{ color: 'red', marginTop: 8, textAlign: 'center' }}>{error}</div>}
-        {success && <div style={{ color: '#3a7bd5', marginTop: 8, textAlign: 'center' }}>{t.thankYou || 'Спасибо за ваш отзыв!'}</div>}
+        {success && <div style={{ color: '#3a7bd5', marginTop: 8, textAlign: 'center' }}>{t.reviewThankYou || 'Спасибо за отзыв!'}</div>}
       </form>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
         {loading ? <div>{t.reviewsLoading || 'Загрузка отзывов...'}</div> : reviews.map((r, i) => (
