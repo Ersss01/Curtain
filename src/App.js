@@ -44,6 +44,10 @@ function App() {
             <span className="benefit-icon" role="img" aria-label="design">🎨</span>
             <span className="benefit-text">{t.benefit_design}</span>
           </div>
+          <div className="benefit-item">
+            <span className="benefit-icon" role="img" aria-label="direct">🚢</span>
+            <span className="benefit-text">{t.benefit_direct}</span>
+          </div>
         </div>
       </section>
       <nav className="App-nav">
