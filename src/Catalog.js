@@ -79,7 +79,7 @@ function ProductModal({ product, lang, t, onClose }) {
         <div style={{ marginBottom: 6 }}>{t.design}: {product.design?.[lang]}</div>
         <div style={{ marginBottom: 6 }}>{t.color}: {product.color?.[lang]}</div>
         <div style={{ marginBottom: 6 }}>{t.room}: {product.room?.[lang]}</div>
-        <div style={{ color: '#3a7bd5', fontWeight: 500, marginBottom: 10 }}>{t.price}: {product.price} тг</div>
+        <div style={{ color: '#3a7bd5', fontWeight: 500, marginBottom: 10 }}>{t.price}: от {Math.floor(product.price / 2)} - до {product.price} тг</div>
         <div style={{ color: '#23272f', fontSize: 15, marginBottom: 18, textAlign: 'center' }}>{product.desc?.[lang]}</div>
         <button onClick={onClose} style={{ marginTop: 'auto', background: '#eaf1fb', color: '#3a7bd5', fontWeight: 700, border: 'none', borderRadius: 8, padding: '0.7rem 1.2rem', fontSize: 16, cursor: 'pointer' }}>Закрыть</button>
       </div>
@@ -222,7 +222,7 @@ export default function Catalog() {
               </div>
               <div style={{ fontSize: 15, color: '#888', marginBottom: 2 }}>{t.design}: {p.design[lang]}</div>
               <div style={{ fontSize: 15, color: '#888', marginBottom: 2 }}>{t.room}: {p.room[lang]}</div>
-              <div style={{ marginTop: 2, color: '#3a7bd5', fontWeight: 700, fontSize: 17 }}>{t.price}: {p.price} тг</div>
+              <div style={{ marginTop: 2, color: '#3a7bd5', fontWeight: 700, fontSize: 17 }}>{t.price}: от {Math.floor(p.price / 2)} - до {p.price} тг</div>
               <button
                 className="product-more-btn"
                 onClick={e => { e.stopPropagation(); setOpenProduct(p); }}
