@@ -214,7 +214,7 @@ export default function Catalog() {
                       height: 18,
                       borderRadius: '50%',
                       display: 'inline-block',
-                      marginLeft: idx > 0 ? -8 : 0
+                      marginLeft: idx > 0 ? -10 : 0
                     }}
                   />
                 ))}
