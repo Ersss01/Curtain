@@ -210,8 +210,8 @@ export default function Catalog() {
                     style={{
                       background: colorMap[c.trim()] || '#eee',
                       border: '1.5px solid #c3d0e8',
-                      width: 22,
-                      height: 22,
+                      width: 18,
+                      height: 18,
                       borderRadius: '50%',
                       display: 'inline-block',
                       marginLeft: idx > 0 ? -6 : 0
